@@ -26,7 +26,6 @@ $staticIpFound = $ipAddresses | Where-Object { $_.PrefixOrigin -eq 'Manual' }
 if ($staticIpFound) {
     Write-Output "Deleting current network config."
     $adapterIndex = (Get-NetAdapter).InterfaceIndex
-    #Remove-NetRoute -InterfaceIndex $adapterIndex -DestinationPrefix 0.0.0.0/0 -Confirm:$false
     Set-NetIPInterface -InterfaceIndex $adapterIndex -Dhcp Enabled
     Set-DnsClientServerAddress -InterfaceIndex $adapterIndex -ResetServerAddresses
 } 
